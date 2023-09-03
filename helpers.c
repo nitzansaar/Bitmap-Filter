@@ -1,7 +1,5 @@
 #include "helpers.h"
 
-void setNewValues(int height, int width, RGBTRIPLE image[height][width], int newValue);
-
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
@@ -25,6 +23,19 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    for (int i = 0; i < height; i++)
+    {
+        int left = 0;
+        int right = width - 1;
+        while (left < right)
+        {
+            RGBTRIPLE temp = image[i][left];
+            image[i][left] = image[i][right];
+            image[i][right] = temp;
+            left++;
+            right--;
+        }
+    }
     return;
 }
 
@@ -38,12 +49,4 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
     return;
-}
-
-// Set new values
-void setNewValues(int height, int width, RGBTRIPLE image[height][width], int newValue)
-{
-    image[height][width].rgbtBlue = newValue;
-    image[height][width].rgbtGreen = newValue;
-    image[height][width].rgbtRed = newValue;
 }
