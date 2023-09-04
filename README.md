@@ -28,3 +28,6 @@ Gaining a deeper understanding of how image filters work and their applications 
 
 ```bash
 $ ./filter -g INFILE.bmp OUTFILE.bmp                                       
+$ ./filter -r INFILE.bmp OUTFILE.bmp
+$ ./filter -b INFILE.bmp OUTFILE.bmp
+$ ./filter -e INFILE.bmp OUTFILE.bmp
