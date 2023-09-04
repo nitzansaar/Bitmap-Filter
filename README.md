@@ -15,11 +15,6 @@ to apply various image filters to input images, creating interesting visual effe
 2. Compile the C code using your preferred compiler (e.g., clang, gcc).
 3. Run the compiled program from the command line, providing the desired filter and input image file as arguments.
 
-## Usage
-
-```bash
-$ ./filter -g INFILE.bmp OUTFILE.bmp                                       
-
 ## What I Learned
 Through this project, I gained hands-on experience in:
 
@@ -28,3 +23,8 @@ Processing image files and pixel manipulation.
 Command-line argument parsing and user input handling.
 Debugging and testing C code
 Gaining a deeper understanding of how image filters work and their applications in image processing.
+
+## Usage
+
+```bash
+$ ./filter -g INFILE.bmp OUTFILE.bmp                                       
