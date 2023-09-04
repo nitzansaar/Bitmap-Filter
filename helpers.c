@@ -88,5 +88,58 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
-    return;
+    RGBTRIPLE copy[height][width];
+
+    // Define the Sobel operators for edge detection
+    int Gx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
+    int Gy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            int Gx_red = 0, Gx_green = 0, Gx_blue = 0;
+            int Gy_red = 0, Gy_green = 0, Gy_blue = 0;
+
+            // Apply Sobel operator to calculate Gx and Gy values
+            for (int row = -1; row <= 1; row++)
+            {
+                for (int col = -1; col <= 1; col++)
+                {
+                    int newRow = i + row;
+                    int newCol = j + col;
+
+                    if (newRow >= 0 && newRow < height && newCol >= 0 && newCol < width)
+                    {
+                        Gx_red += Gx[row + 1][col + 1] * image[newRow][newCol].rgbtRed;
+                        Gx_green += Gx[row + 1][col + 1] * image[newRow][newCol].rgbtGreen;
+                        Gx_blue += Gx[row + 1][col + 1] * image[newRow][newCol].rgbtBlue;
+
+                        Gy_red += Gy[row + 1][col + 1] * image[newRow][newCol].rgbtRed;
+                        Gy_green += Gy[row + 1][col + 1] * image[newRow][newCol].rgbtGreen;
+                        Gy_blue += Gy[row + 1][col + 1] * image[newRow][newCol].rgbtBlue;
+                    }
+                }
+            }
+
+            // Calculate edge strength using magnitude of Gx and Gy
+            int red = round(sqrt(Gx_red * Gx_red + Gy_red * Gy_red));
+            int green = round(sqrt(Gx_green * Gx_green + Gy_green * Gy_green));
+            int blue = round(sqrt(Gx_blue * Gx_blue + Gy_blue * Gy_blue));
+
+            // Cap the color values at 255
+            copy[i][j].rgbtRed = (red > 255) ? 255 : red;
+            copy[i][j].rgbtGreen = (green > 255) ? 255 : green;
+            copy[i][j].rgbtBlue = (blue > 255) ? 255 : blue;
+        }
+    }
+
+    // Copy the edge-detected image back to the original image
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            image[i][j] = copy[i][j];
+        }
+    }
 }
